@@ -202,7 +202,7 @@ function sendMsg(message, text, option = {}) {
 //リアクション用function
 function  reaction(message, emoji, option = {}) {
   message
-    .react('emoji')
+    .react(emoji)
     .then(console.log("リアクション: " + emoji + JSON.stringify(option)))
     .catch(console.error);
 }
