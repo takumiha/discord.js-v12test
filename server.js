@@ -43,7 +43,7 @@ client.on("ready", (message) => {
    }, 10000//←10000ミリ秒(=10秒)おきに情報の取得と更新をする
 )});
 
-client.on("message", (message) => {
+client.on("message", async (message) => {
   //botに反応しない
   if (message.author.bot) return;
   if (message.author.id == client.user.id) {
@@ -122,6 +122,15 @@ client.on("message", (message) => {
     let files = "https://nnn.tt/image.png";
     sendfile(message, files);
     return;
+    }
+  
+  //メッセージを取得→text送信→ntextに編集
+  //testが送信されるとbeforeが送信され、3000ミリ秒(=3秒)後にafterに変化する
+  if (message.content === 'test') {
+     let text = "before";
+     let ntext = " after";
+     let time = "3000";
+      timerMsg(message, text, ntext, time)
     }
   
   //vc 接続と切断
@@ -214,6 +223,14 @@ function sendfile(message, files, option = {}) {
     .send({files: [files]})
     .then(console.log("ファイル送信: " + files + JSON.stringify(option)))
     .catch(console.error);
+}
+
+//一定時間後メッセージ編集ファンクション
+async function timerMsg(message, text, ntext, time) {
+    const reply = await message.channel.send(text)
+      await setTimeout(() => {
+	   reply.edit(ntext)
+	 }, time)
 }
 
 //確率用function
