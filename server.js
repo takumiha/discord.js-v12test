@@ -86,6 +86,14 @@ client.on("message", (message) => {
     return;
   }
   
+  //リアクション
+   //悲しいもしくは🥺が含まれた文が送られると🥺とリアクションをつける
+  if (message.content.match(/🥺|悲しい/)) {
+    let emoji = "🥺";
+    reaction(message, emoji);
+    return;
+  }
+  
   //確率　キーワード含む
   //キーワードが送信されるとmessage1かmessage2でそれぞれに分配された比率で反応
       //先ほど同様、|を使うことで複数指定したり、.matchを === にすることでワードの限定が可能
@@ -188,6 +196,14 @@ function sendMsg(message, text, option = {}) {
     .channel
     .send(text)
     .then(console.log("メッセージ送信: " + text + JSON.stringify(option)))
+    .catch(console.error);
+}
+
+//リアクション用function
+function  reaction(message, emoji, option = {}) {
+  message
+    .react('emoji')
+    .then(console.log("リアクション: " + emoji + JSON.stringify(option)))
     .catch(console.error);
 }
 
