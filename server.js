@@ -114,6 +114,24 @@ client.on("message", async (message) => {
     return;
   }
   
+   //ラグ送信
+    //lagwordを送信すると入力中と表示され5秒後にtestと送信
+  if (message.content.match(/lagword/)){
+    let text = "test";
+    let time = "5000";
+    lagmsg(message, text, time)
+  }
+	
+//乱数送信
+  　//乱数
+  const prob = Math.floor(Math.random() * 1000);//1000までの乱数を生成
+  //メッセージ送信
+  //乱数の値が23以下だったらhiと送信される
+  if (message.content && prob < 23){
+      let text = "hi";
+    sendMsg(message, text);
+    return;
+    }
   //ファイル添付
    //filesを添付することが可能　
       //glitchを使う場合assetsにファイルをアップしそこからリンクを持てくるといい
@@ -223,6 +241,18 @@ function sendfile(message, files, option = {}) {
     .send({files: [files]})
     .then(console.log("ファイル送信: " + files + JSON.stringify(option)))
     .catch(console.error);
+}
+
+//ラグメッセージファンクション
+function lagmsg(message, text, time){
+  message.channel.startTyping()
+  setTimeout(() => {
+    message.channel.stopTyping()
+	   message
+       .channel
+       .send(text)
+       .then(console.log("ラグメッセージ送信: " + text))
+	 }, time)
 }
 
 //一定時間後メッセージ編集ファンクション
