@@ -18,7 +18,8 @@
     "sodium": "^3.0.2",
     "opusscript": "^0.0.7",
     "discord-replys": "^1.0.0",
-    "node-opus": "^0.3.3"
+    "node-opus": "^0.3.3",
+    "discord-slash-commands-v12": "^7.9.16"
   },
   "engines": {
     "node": "12.x"
